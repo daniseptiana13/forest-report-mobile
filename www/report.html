@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buat Laporan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body><div class="app-container">  <div class="top-bar">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div>
+      <h2>Buat Laporan</h2>
+      <div class="subtitle">Pengawas Hutan</div>
+    </div>
+  </div>  <div class="form-card"><label>Tanggal & Waktu</label>
+<input type="text" id="reportTime" readonly>
+
+<label>Suhu di luar (°C)</label>
+<input type="number" id="temperature" placeholder="Contoh: 23.5">
+
+<label>Kecepatan Angin (km/jam)</label>
+<input type="number" id="windSpeed" placeholder="Contoh: 15">
+
+<label>Keadaan Langit / Cuaca</label>
+<select id="weather">
+  <option>Cerah</option>
+  <option>Cerah Berawan</option>
+  <option>Berawan</option>
+  <option>Mendung</option>
+  <option>Gerimis</option>
+  <option>Hujan Ringan</option>
+  <option>Hujan Sedang</option>
+  <option>Hujan Lebat</option>
+  <option>Hujan Petir</option>
+  <option>Kabut</option>
+  <option>Angin Kencang</option>
+</select>
+
+<label>Jumlah Orang yang Ditolong</label>
+<input type="number" id="peopleHelped" placeholder="Masukkan angka">
+
+<label>Wilayah / Pos Jaga</label>
+<input type="text" id="guardLocation" placeholder="Contoh: Tower 1">
+
+<button class="primary-btn" onclick="saveReport()">
+  Simpan Laporan
+</button>
+
+<div id="statusMessage" class="status-message"></div>
+
+  </div></div><script src="js/report.js"></script>
+<script src="js/sync.js"></script>
+</body>
+</html>
