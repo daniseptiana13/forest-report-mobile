@@ -5,7 +5,9 @@
   <title>Laporan Pengawas</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body><div class="app-container">  <div class="top-bar">
+<body>
+  <div class="app-container">
+    <div class="top-bar">
     <button class="back-btn" onclick="goHome()">←</button>
     <div>
       <h2>Laporan Pengawas</h2>
@@ -21,9 +23,14 @@
   <div id="connectionStatus" class="stat-value">Offline</div>
 </div>
 
-  </div>  <button class="primary-btn" onclick="loadReports()">
+  </div>
+    <button class="primary-btn" onclick="loadReports()">
     Refresh Data
-  </button>  <div id="reportCards" class="report-list"></div></div><script src="js/reports.js"></script>
-<script src="js/sync.js"></script>
+  </button>
+    <div id="reportCards" class="report-list"></div>
+  </div>
+
+<script src="js/reports.js"></script>
+
 </body>
 </html>

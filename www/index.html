@@ -5,18 +5,26 @@
   <title>Forest Report - Login</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body><div class="login-container">  <div class="logo-circle">🌲</div>  <h1>Forest Report</h1>
+<body><div class="login-container">
+  <div class="logo-circle">🌲</div>
+  <h1>Forest Report</h1>
   <p>Sistem Laporan Pengawas Hutan</p><input
 type="text"
 id="userId"
 maxlength="8"
 placeholder="Masukkan ID User (8 digit)"
-
-«»
+/>
 
 <button onclick="login()">Masuk</button>
+  <button class="reload-btn" onclick="reloadApp()">
+  🔄 Reload
+  </button>
 
   <div class="footer-text">
     Offline Ready
-  </div></div><script src="js/auth.js"></script></body>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
 </html>

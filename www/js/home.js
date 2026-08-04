@@ -9,7 +9,7 @@ const status = navigator.onLine
 ? '<span style="color:green;">🟢 Online</span>'
 : '<span style="color:#d97706;">🟡 Offline</span>';
 
-document.getElementById('welcomeText').innerHTML = "Selamat datang <b>${session.full_name}</b><br> ID Login: <b>${session.id_user}</b><br> Status: ${status}";
+document.getElementById('welcomeText').innerHTML = `Selamat datang <b>${session.full_name}</b><br> ID Login: <b>${session.id_user}</b><br> Status: ${status}`;
 }
 
 updateStatus();

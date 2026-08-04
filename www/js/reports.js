@@ -28,6 +28,21 @@ const d = new Date(iso);
 return d.toLocaleString('id-ID');
 }
 
+function syncBadge(report) {
+  // Data dari pending_reports
+  if (report.sync_status === 0) {
+    return '<span class="badge pending">🟡 Menunggu Sinkronisasi</span>';
+  }
+
+  // Data gagal dikirim
+  if (report.sync_status === -1) {
+    return '<span class="badge failed">🔴 Gagal Sinkron</span>';
+  }
+
+  // Data dari server
+  return '<span class="badge synced">🟢 Tersinkron</span>';
+}
+
 function renderReports(reports) {
 document.getElementById('totalReports').innerText = reports.length;
 document.getElementById('connectionStatus').innerText =
@@ -40,7 +55,7 @@ container.innerHTML = '';
 
 if (reports.length === 0) {
 container.innerHTML =
-'<div class="report-card">Belum ada laporan.</div>';
+`<div class="report-card">Belum ada laporan.</div>`;
 return;
 }
 
@@ -48,8 +63,11 @@ reports.forEach(report => {
 container.innerHTML += `
 <div class="report-card">
 <div class="report-header">
-<div class="report-name">${report.full_name}</div>
-<div class="report-time">${formatTime(report.report_time)}</div>
+  <div>
+    <div class="report-name">${report.full_name}</div>
+    ${syncBadge(report)}
+  </div>
+  <div class="report-time">${formatTime(report.report_time)}</div>
 </div>
 
     <div class="weather-row">
@@ -89,15 +107,19 @@ container.innerHTML += `
 async function loadReports() {
 if (navigator.onLine) {
 try {
-const response = await fetch("${API}/api/reports");
+const response = await fetch(`${API}/api/reports`, {
+  cache: 'no-store'
+});
+
 const data = await response.json();
+data.forEach(r => r.sync_status = 1);
 renderReports(data);
 return;
 } catch (err) {}
 }
 
-const local = JSON.parse(localStorage.getItem('local_reports')) || [];
-const myReports = local.filter(r => r.id_user === session.id_user);
+const pending = JSON.parse(localStorage.getItem('pending_reports')) || [];
+const myReports = pending.filter(r => r.id_user === session.id_user);
 renderReports(myReports);
 }
 
@@ -109,3 +131,17 @@ loadReports();
 
 window.addEventListener('online', loadReports);
 window.addEventListener('offline', loadReports);
+
+// Refresh otomatis jika ada sinkronisasi baru
+window.addEventListener('storage', (e) => {
+  if (e.key === 'sync_updated') {
+    loadReports();
+  }
+});
+
+// Refresh setiap halaman dibuka kembali
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    loadReports();
+  }
+});
